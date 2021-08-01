@@ -14,6 +14,7 @@ router.get("/google-reviews", async (req, res, next) => {
     args: ["--no-sandbox", "--disable-setuid-sandbox"],
   });
   const page = await browser.newPage();
+  await page.setGeolocation({ latitude: 45.764043, longitude: 4.835659 });
   // await page.setViewport({ width: 1000, height: 500 });
   // await page.goto(`https://www.google.fr/search?q=${search}`);
   await page.goto(
