@@ -18,7 +18,7 @@ router.get("/google-reviews", async (req, res, next) => {
   // await page.setViewport({ width: 1000, height: 500 });
   // await page.goto(`https://www.google.fr/search?q=${search}`);
   await page.goto(
-    "https://www.google.fr/search?q=le-bahia+charavines&rlz=1C5CHFA_enFR962FR962&oq=le-bahia+charavines&ie=UTF-8"
+    "https://www.google.fr/search?q=le-bahia+charavines&rlz=1C5CHFA_frFR962FR962&oq=le-bahia+charavines&ie=UTF-8"
   );
   await page.click("#L2AGLb > div");
   await page.click("span.hqzQac > span > a > span");
