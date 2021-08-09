@@ -11,25 +11,26 @@ router.get("/", function (req, res, next) {
 router.get("/google-reviews", async (req, res, next) => {
   var search = req.query.search;
   const browser = await puppeteer.launch({
+    headless: false,
     args: ["--no-sandbox", "--disable-setuid-sandbox"],
   });
 
   const page = await browser.newPage();
   const context = browser.defaultBrowserContext();
   await context.overridePermissions(
-    "https://www.google.fr/search?q=le-bahia+charavines&rlz=1C5CHFA_frFR962FR962&oq=le-bahia+charavines&ie=UTF-8",
+    "https://www.google.fr/search?q=${search}",
     ["geolocation"]
   );
-  // await page.setGeolocation({ latitude: 45.764043, longitude: 4.835659 });
+  await page.setGeolocation({ latitude: 45.764043, longitude: 4.835659 });
   // await page.setViewport({ width: 1000, height: 500 });
-  // await page.goto(`https://www.google.fr/search?q=${search}`);
-  await page.goto(
-    "https://www.google.fr/search?q=le-bahia+charavines&rlz=1C5CHFA_frFR962FR962&oq=le-bahia+charavines&ie=UTF-8"
-  );
+  await page.goto(`https://www.google.fr/search?q=${search}`);
+  // await page.goto(
+  //   "https://www.google.fr/search?q=le-bahia+charavines&rlz=1C5CHFA_frFR962FR962&oq=le-bahia+charavines&ie=UTF-8"
+  // );
   await page.setGeolocation({ latitude: 45.764043, longitude: 4.835659 });
   await page.click("#L2AGLb > div");
   await page.click("span.hqzQac > span > a > span");
-  await page.waitForTimeout(1500);
+  await page.waitForTimeout(3000);
   const avis = await page.evaluate(() => {
     let reviews = [];
     let name = document.querySelector("div.P5Bobd").textContent;
@@ -44,17 +45,17 @@ router.get("/google-reviews", async (req, res, next) => {
       ).split("");
 
       reviews.push({
-        pseudo: element.querySelector(".TSUbDb").textContent,
-        comment: element.querySelector(".Jtu6Td").textContent,
+        pseudo: element.querySelector("div.TSUbDb").textContent,
+        comment: element.querySelector("div.Jtu6Td").textContent,
         rating: ratingConverse[7],
-        time: element.querySelector(".dehysf.lTi8oc").textContent,
+        time: element.querySelector("span.dehysf.lTi8oc").textContent,
         img: element.querySelector("img.lDY1rd").src,
       });
     }
     return { name, rating, number_rating, reviews };
   });
 
-  // await browser.close();
+  await browser.close();
 
   res.json({ result: avis });
 });
