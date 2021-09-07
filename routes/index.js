@@ -21,10 +21,10 @@ router.get("/google-reviews", async (req, res, next) => {
 
   const page = await browser.newPage();
   const context = browser.defaultBrowserContext();
-  await context.overridePermissions(
-    "https://www.google.fr/search?q=${search}",
-    ["geolocation"]
-  );
+  // await context.overridePermissions(
+  //   "https://www.google.fr/search?q=${search}",
+  //   ["geolocation"]
+  // );
   await page.setGeolocation({ latitude: 45.764043, longitude: 4.835659 });
   // await page.setViewport({ width: 1000, height: 500 });
   await page.goto(`https://www.google.fr/search?q=${search}`);
@@ -34,7 +34,7 @@ router.get("/google-reviews", async (req, res, next) => {
   await page.setGeolocation({ latitude: 45.764043, longitude: 4.835659 });
   await page.click("#L2AGLb > div");
   await page.click("span.hqzQac > span > a > span");
-  await page.waitForTimeout(3000);
+  await page.waitForTimeout(1500);
   const avis = await page.evaluate(() => {
     let reviews = [];
     let name = document.querySelector("div.P5Bobd").textContent;
@@ -47,14 +47,15 @@ router.get("/google-reviews", async (req, res, next) => {
       let ratingConverse = String(
         element.querySelector(".Fam1ne.EBe2gf").getAttribute("aria-label")
       ).split("");
-
-      reviews.push({
-        pseudo: element.querySelector("div.TSUbDb").textContent,
-        comment: element.querySelector("div.Jtu6Td").textContent,
-        rating: ratingConverse[7],
-        time: element.querySelector("span.dehysf.lTi8oc").textContent,
-        img: element.querySelector("img.lDY1rd").src,
-      });
+      if (ratingConverse[7] >= 4) {
+        reviews.push({
+          pseudo: element.querySelector("div.TSUbDb").textContent,
+          comment: element.querySelector("div.Jtu6Td").textContent,
+          rating: ratingConverse[7],
+          time: element.querySelector("span.dehysf.lTi8oc").textContent,
+          img: element.querySelector("img.lDY1rd").src,
+        });
+      }
     }
     return { name, rating, number_rating, reviews };
   });
