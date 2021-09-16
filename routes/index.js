@@ -34,7 +34,7 @@ router.get("/google-reviews", async (req, res, next) => {
   await page.setGeolocation({ latitude: 45.764043, longitude: 4.835659 });
   await page.click("#L2AGLb > div");
   await page.click("span.hqzQac > span > a > span");
-  await page.waitForTimeout(2000);
+  await page.waitForTimeout(3000);
   const avis = await page.evaluate(() => {
     let reviews = [];
     let name = document.querySelector("div.P5Bobd").textContent;
