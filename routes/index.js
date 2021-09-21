@@ -24,7 +24,7 @@ router.get("/google-reviews", async (req, res, next) => {
   // await context.overridePermissions("https://www.google.fr/", ["geolocation"]);
   // await page.setGeolocation({ latitude: 45.764043, longitude: 4.835659 });
   // await page.goto(`https://www.google.fr/search?q=${search}`);
-  await page.goto(`https://www.google.com/search?q=${search}&hl=fr`);
+  await page.goto(`https://www.google.fr/search?q=${search}&hl=fr`);
   await page.click("#L2AGLb > div");
   await page.click("span.hqzQac > span > a > span");
   await page.waitForTimeout(1500);
