@@ -11,7 +11,7 @@ router.get("/", function (req, res, next) {
 router.get("/google-reviews", async (req, res, next) => {
   var search = req.query.search;
   const browser = await puppeteer.launch({
-    headless: false,
+    headless: true,
     args: [
       "--no-sandbox",
       "--disable-setuid-sandbox",
