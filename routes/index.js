@@ -19,11 +19,14 @@ router.get("/google-reviews", async (req, res, next) => {
     ],
   });
 
-  const page = await browser.newPage();
   const context = browser.defaultBrowserContext();
+  const page = await browser.newPage();
   await context.overridePermissions("https://www.google.fr/", ["geolocation"]);
   await page.setGeolocation({ latitude: 45.764043, longitude: 4.835659 });
-  await page.goto(`https://www.google.fr/search?q=${search}`);
+  // await page.goto(`https://www.google.fr/search?q=${search}`);
+  await page.goto(
+    `https://www.google.com/search?q=${search}&sxsrf=AOaemvKnrnCvUfA4lCsN8-codrgyvK5LSw%3A1632191872673&source=hp&ei=gEVJYbbZJYLqaoKKiRg&iflsig=ALs-wAMAAAAAYUlTkEEjIp7V6Zxh9snofFiIhNtrhZmi&oq=&gs_lcp=Cgdnd3Mtd2l6EAEYADIHCCMQ6gIQJzIHCCMQ6gIQJzIHCCMQ6gIQJzIHCCMQ6gIQJzIHCCMQ6gIQJzIHCCMQ6gIQJzIHCCMQ6gIQJzIHCCMQ6gIQJzIHCCMQ6gIQJzIHCCMQ6gIQJ1AAWABg9bQUaAJwAHgAgAEAiAEAkgEAmAEAsAEK&sclient=gws-wiz`
+  );
   await page.click("#L2AGLb > div");
   await page.click("span.hqzQac > span > a > span");
   await page.waitForTimeout(1500);
