@@ -27,7 +27,7 @@ router.get("/google-reviews", async (req, res, next) => {
   await page.setGeolocation({ latitude: 45.764043, longitude: 4.835659 });
   await page.goto(`https://www.google.fr/search?q=${search}&hl=fr`);
   await page.waitForTimeout(3000);
-  // await page.click("#L2AGLb > div"); #xe7COe > div.jw8mI
+  // await page.click("#L2AGLb > div"); // RETIRÉ car ne fonctionne pas sur tous les serveurs
   await page.click("span.hqzQac > span > a > span");
   console.log("Lancement du timeout");
   await page.waitForTimeout(3000);
