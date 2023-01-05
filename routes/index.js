@@ -9,6 +9,7 @@ router.get("/", function (req, res, next) {
 
 /* Avis Google. */
 router.get("/google-reviews", async (req, res, next) => {
+  console.log("Lancement de la route");
   var search = req.query.search;
   const browser = await puppeteer.launch({
     headless: true,
@@ -18,6 +19,7 @@ router.get("/google-reviews", async (req, res, next) => {
       "--disable-web-security",
     ],
   });
+  console.log("Lancement de chrome");
 
   const context = browser.defaultBrowserContext();
   const page = await browser.newPage();
@@ -26,7 +28,9 @@ router.get("/google-reviews", async (req, res, next) => {
   await page.goto(`https://www.google.fr/search?q=${search}&hl=fr`);
   await page.click("#L2AGLb > div");
   await page.click("span.hqzQac > span > a > span");
-  await page.waitForTimeout(10000);
+  console.log("Lancement du timeout");
+  await page.waitForTimeout(3000);
+  console.log("Timeout fini");
   const avis = await page.evaluate(() => {
     let reviews = [];
     let name = document.querySelector("div.P5Bobd").textContent;
