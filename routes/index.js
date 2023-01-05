@@ -12,7 +12,7 @@ router.get("/google-reviews", async (req, res, next) => {
   console.log("Lancement de la route");
   var search = req.query.search;
   const browser = await puppeteer.launch({
-    headless: true,
+    // headless: true,
     args: [
       "--no-sandbox",
       "--disable-setuid-sandbox",
@@ -27,7 +27,7 @@ router.get("/google-reviews", async (req, res, next) => {
   await page.setGeolocation({ latitude: 45.764043, longitude: 4.835659 });
   await page.goto(`https://www.google.fr/search?q=${search}&hl=fr`);
   await page.waitForTimeout(3000);
-  await page.click("#L2AGLb > div");
+  // await page.click("#L2AGLb > div"); #xe7COe > div.jw8mI
   await page.click("span.hqzQac > span > a > span");
   console.log("Lancement du timeout");
   await page.waitForTimeout(3000);
