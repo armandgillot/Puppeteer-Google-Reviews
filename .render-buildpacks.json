@@ -1,5 +1,7 @@
 {
   "buildpacks": [
-    "https://buildpack-registry.s3.amazonaws.com/buildpacks/jontewks/puppeteer.tgz"
+    "heroku/nodejs",
+    "https://buildpack-registry.s3.amazonaws.com/buildpacks/jontewks/puppeteer.tgz",
+    "https://github.com/jontewks/puppeteer-heroku-buildpack.git"
   ]
 }
