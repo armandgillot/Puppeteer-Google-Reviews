@@ -26,7 +26,7 @@ router.get("/google-reviews", async (req, res, next) => {
   await page.goto(`https://www.google.fr/search?q=${search}&hl=fr`);
   await page.click("#L2AGLb > div");
   await page.click("span.hqzQac > span > a > span");
-  await page.waitForTimeout(5000);
+  await page.waitForTimeout(10000);
   const avis = await page.evaluate(() => {
     let reviews = [];
     let name = document.querySelector("div.P5Bobd").textContent;
