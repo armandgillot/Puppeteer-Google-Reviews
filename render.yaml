@@ -4,9 +4,8 @@
 services:
   - type: web # valid values: https://render.com/docs/yaml-spec#type
     name: cdb-backend
-    env: docker # valid values: https://render.com/docs/yaml-spec#environment
+    env: docker pull ghcr.io/puppeteer/puppeteer:latest # valid values: https://render.com/docs/yaml-spec#environment
     dockerfilePath: Dockerfile.render
     plan: free # optional; defaults to starter
-    numInstances: 0
+    numInstances: 1
     envVars:
-
