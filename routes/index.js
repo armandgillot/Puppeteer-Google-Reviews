@@ -33,7 +33,7 @@ router.get("/google-reviews", async (req, res, next) => {
   console.log("Timeout fini");
   const avis = await page.evaluate(() => {
     let reviews = [];
-    let name = document.querySelector("div.P5Bobd").textContent;
+    let name = document.querySelector(".Lhccdd > div").textContent;
     let number_rating = document.querySelector("span.z5jxId").textContent;
     let rating = document.querySelector("span.Aq14fc").textContent;
     let elements = document.querySelectorAll(
@@ -41,7 +41,7 @@ router.get("/google-reviews", async (req, res, next) => {
     );
     for (element of elements) {
       let ratingConverse = String(
-        element.querySelector(".Fam1ne.EBe2gf").getAttribute("aria-label")
+        element.querySelector("span.lTi8oc.z3HNkc").getAttribute("aria-label")
       ).split("");
       if (ratingConverse[7] >= 4) {
         reviews.push({
